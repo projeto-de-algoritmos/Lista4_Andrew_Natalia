@@ -13,8 +13,11 @@ def draw(points, closest_points):
     plt.figure(figsize = (10, 8))
     for point in points:
         plt.scatter(point.x, point.y, color = 'blue')
-        plt.annotate(point.name, (point.x, point.y))
+        # plt.annotate(point.name, (point.x, point.y))
     plt.scatter([closest_points[0].x, closest_points[1].x], [closest_points[0].y, closest_points[1].y], color = 'red')
+    plt.annotate(closest_points[0].name, (closest_points[0].x-len(closest_points[0].name)*10, closest_points[0].y))
+    plt.annotate(closest_points[1].name, (closest_points[1].x, closest_points[1].y))
+
     plt.plot([closest_points[0].x, closest_points[1].x], [closest_points[0].y, closest_points[1].y])
     plt.show()
 
