@@ -15,7 +15,7 @@ def draw(points, closest_points):
         plt.scatter(point.x, point.y, color = 'blue')
         # plt.annotate(point.name, (point.x, point.y))
     plt.scatter([closest_points[0].x, closest_points[1].x], [closest_points[0].y, closest_points[1].y], color = 'red')
-    plt.annotate(closest_points[0].name, (closest_points[0].x-len(closest_points[0].name)*10, closest_points[0].y))
+    plt.annotate(closest_points[0].name, (closest_points[0].x, closest_points[0].y))
     plt.annotate(closest_points[1].name, (closest_points[1].x, closest_points[1].y))
 
     plt.plot([closest_points[0].x, closest_points[1].x], [closest_points[0].y, closest_points[1].y])
@@ -32,12 +32,8 @@ def create_points(cities):
 
 def get_closest_points(points):
     len_points = len(points)
-
-    if len_points == 0 or len_points == 1:
-        print('empty set of points')
-        return
     
-    elif len_points == 2:
+    if len_points == 2:
         return dist(points[0], points[1]), points
 
     # Sort points based on their x values.
@@ -106,11 +102,22 @@ def merge_closest_points(d_fs_min, first_half, second_half):
     return min_inter_dist, closest_inter_point 
 
 def main():
-    uf = input("Digite o estado: ")
-    cities = Cities(uf)
+    uf_name = input("Digite o estado: ")
+    population = input("Digite o limite de população: ")
+    
+    cities = Cities(uf_name, population)
     points = cities.list
-    d, closest_points = get_closest_points(points)
-    draw(points, closest_points)
+    
+    if(len(points) > 1):
+        d, closest_points = get_closest_points(points)
+
+        print("\nAs cidades mais próximas são: " + 
+            closest_points[0].name + " e " + 
+            closest_points[1].name)
+
+        draw(points, closest_points)
+    else:
+        print("\nNão há cidades que se encaixam nas especificações!")
 
 if __name__ == '__main__':
     main()
